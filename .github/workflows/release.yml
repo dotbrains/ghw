@@ -27,6 +27,14 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install pyinstaller
 
+            - name: Install GitHub CLI
+              run: sudo apt-get install gh
+
+            - name: Authenticate GitHub CLI
+              env:
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+              run: echo ${{ secrets.GH_TOKEN }} | gh auth login --with-token
+
             - name: Run tests
               run: |
                   pip install -r requirements.txt
@@ -56,7 +64,7 @@ jobs:
               id: create_release
               uses: actions/create-release@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
               with:
                   tag_name: ${{ github.ref }}
                   release_name: Release ${{ github.ref }}
@@ -66,7 +74,7 @@ jobs:
             - name: Upload Release Asset
               uses: actions/upload-release-asset@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./dist/ghw
