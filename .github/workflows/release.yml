@@ -11,7 +11,7 @@ jobs:
 
         strategy:
             matrix:
-                python-version: [ 3.12 ]
+                python-version: [3.12]
 
         steps:
             - name: Checkout repository
@@ -31,7 +31,11 @@ jobs:
               run: sudo apt-get install gh
 
             - name: Authenticate GitHub CLI
-              run: echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
+              run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+            - name: Extract tag name
+              id: extract_tag
+              run: echo "TAG_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
             - name: Run tests
               run: |
@@ -61,18 +65,20 @@ jobs:
             - name: Create GitHub Release
               id: create_release
               uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  tag_name: ${{ github.ref }}
-                  release_name: Release ${{ github.ref }}
+                  tag_name: ${{ env.TAG_NAME }}
+                  release_name: Release ${{ env.TAG_NAME }}
                   draft: false
                   prerelease: false
-                  token: ${{ secrets.GH_TOKEN }}
 
             - name: Upload Release Asset
               uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./dist/ghw
                   asset_name: ghw
                   asset_content_type: application/octet-stream
-                  token: ${{ secrets.GH_TOKEN }}
