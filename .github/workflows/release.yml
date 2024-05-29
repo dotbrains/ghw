@@ -31,9 +31,7 @@ jobs:
               run: sudo apt-get install gh
 
             - name: Authenticate GitHub CLI
-              run: echo "${{ GITHUB_TOKEN }}" | gh auth login --with-token
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
 
             - name: Run tests
               run: |
@@ -68,14 +66,13 @@ jobs:
                   release_name: Release ${{ github.ref }}
                   draft: false
                   prerelease: false
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ secrets.GH_TOKEN }}
 
             - name: Upload Release Asset
               uses: actions/upload-release-asset@v1
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./dist/ghw
                   asset_name: ghw
                   asset_content_type: application/octet-stream
+                  token: ${{ secrets.GH_TOKEN }}
