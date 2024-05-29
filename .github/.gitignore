@@ -1,0 +1,94 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+pipenv/
+.venv.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Pyre type checker
+.pyre/
+
+# Pylint
+pylint_global_disable
+
+# pyright type checker
+.pyright/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre/traceback
+.pytype/
+.pytype_cache/
+
+# Environments
+.env
+.env.bak
+.env.local
+
+# Editor directories and files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Additional directories
+bin/
+cover/
+log/
+logs/
+local/
+
+# Additional files
+*.env
+*.venv
