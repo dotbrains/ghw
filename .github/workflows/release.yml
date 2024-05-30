@@ -11,6 +11,7 @@ jobs:
 
         strategy:
             matrix:
+                os: [ubuntu-latest, macos-latest]
                 python-version: [3.12]
 
         steps:
@@ -38,14 +39,16 @@ jobs:
                   pip install -r requirements.txt
                   python -m unittest discover -s tests
 
-            - name: Build executable
+            - name: Inject version and build executable
               run: |
-                  pyinstaller --onefile src/ghw.py --name ghw
+                VERSION=$(python setup.py --version)
+                sed -i "s/VERSION = \"0.0.0\"/VERSION = \"$VERSION\"/" src/ghw.py
+                pyinstaller --onefile src/ghw.py --name ghw
 
             - name: Archive binary
               uses: actions/upload-artifact@v2
               with:
-                  name: ghw
+                  name: ghw-${{ matrix.os }}
                   path: dist/ghw
 
     release:
@@ -55,7 +58,7 @@ jobs:
             - name: Download binary
               uses: actions/download-artifact@v2
               with:
-                  name: ghw
+                  name: ghw-${{ matrix.os }}
                   path: dist/
 
             - name: Extract tag name
@@ -79,6 +82,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./dist/ghw
+                  asset_path: ./dist/ghw-${{ matrix.os }}
                   asset_name: ghw
                   asset_content_type: application/octet-stream
