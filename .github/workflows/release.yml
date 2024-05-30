@@ -51,21 +51,14 @@ jobs:
                   name: ghw-${{ matrix.os }}
                   path: dist/ghw
 
-    release:
-        needs: build
-
+    create_release:
         runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                os: [ ubuntu-latest, macos-latest ]
+        needs: build
 
         steps:
-            - name: Download binary
-              uses: actions/download-artifact@v2
-              with:
-                  name: ghw-${{ matrix.os }}
-                  path: dist/
+            - name: Checkout repository
+              uses: actions/checkout@v2
 
             - name: Extract tag name
               id: extract_tag
@@ -81,6 +74,22 @@ jobs:
                   release_name: Release ${{ env.TAG_NAME }}
                   draft: false
                   prerelease: false
+
+    release:
+        needs: build
+
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                os: [ ubuntu-latest, macos-latest ]
+
+        steps:
+            - name: Download binary
+              uses: actions/download-artifact@v2
+              with:
+                  name: ghw-${{ matrix.os }}
+                  path: dist/
 
             - name: Upload Release Asset
               uses: actions/upload-release-asset@v1
