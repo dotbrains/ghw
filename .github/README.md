@@ -46,7 +46,7 @@
     mv dist/ghw .
     ```
 
-4. Make the executable file executable (optional):
+4. Make the executable file executable:
 	```sh
 	chmod +x ghw
 	```
