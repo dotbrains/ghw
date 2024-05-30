@@ -44,7 +44,7 @@ def parse_arguments():
         "-v",
         "--version",
         action="version",
-        version="%(prog)s (version {})".format(obtain_version()),
+        version=f"%(prog)s (version {obtain_version()})",
     )
     parser.add_argument(
         "args", nargs=argparse.REMAINDER, help="Arguments for the gh command"
@@ -65,10 +65,10 @@ def check_gh_cli_installed():
             stderr=subprocess.PIPE,
             check=True,
         )
-    except FileNotFoundError:
+    except FileNotFoundError as e:
         raise FileNotFoundError(
             "The gh CLI is not installed. Please install it from https://cli.github.com/"
-        )
+        ) from e
     except subprocess.CalledProcessError as e:
         raise RuntimeError(
             "The gh CLI is not installed. Please install it from https://cli.github.com/"
