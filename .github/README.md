@@ -46,6 +46,11 @@
     mv dist/ghw .
     ```
 
+4. Make the executable file executable (optional):
+	```sh
+	chmod +x ghw
+	```
+
 Ensure the `ghw` command is in your PATH:
 
 ```sh
