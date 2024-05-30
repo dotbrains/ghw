@@ -1,4 +1,4 @@
-# ghw
+# ghw [![Build, Test, and Release](https://github.com/dotbrains/ghw/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/ghw/actions/workflows/release.yml)
 
 `ghw` is a command-line tool that acts as a wrapper around the official GitHub CLI (`gh`). It provides enhanced functionality for cloning repositories into a specified directory structure while passing through all other commands to the official `gh` CLI.
 
@@ -182,22 +182,37 @@ This directory structure should be more organized and logical for a Python proje
 
 ## GitHub Actions Workflow
 
-This project includes a GitHub Actions workflow that automatically builds a new binary and creates a release on GitHub whenever a new tag is pushed that matches the pattern `v*.*.*`.
+This project includes a GitHub Actions workflow that automatically builds a new binary and creates a release on GitHub whenever a new tag is pushed that matches the pattern v*.*.*.
 
 ### How It Works
 
 1. **Trigger**: The workflow is triggered on push events to tags that match the pattern `v*.*.*`.
+
 2. **Build Job**:
-	- **Checkout repository**: Clones the repository.
-	- **Set up Python**: Sets up the Python environment.
-	- **Install dependencies**: Installs `pyinstaller`.
-    - **Run tests**: Runs the unit tests to ensure code quality.
-	- **Build executable**: Runs `pyinstaller` to build the binary.
-	- **Archive binary**: Archives the built binary.
+	- **Checkout repository**: Clones the repository to the runner.
+	- **Set up Python**: Sets up the Python environment with the specified version.
+	- **Install dependencies**: Installs `pyinstaller` and other required Python packages.
+	- **Install GitHub CLI (Linux only)**: Installs GitHub CLI on Linux runners.
+	- **Authenticate GitHub CLI**: Authenticates GitHub CLI using a GitHub token.
+	- **Run tests**: Runs unit tests to ensure the code quality.
+	- **Inject version and build executable**: Injects the version into the code and builds the executable using `pyinstaller`.
+	- **Archive binary**: Archives the built binary for later steps.
+
 3. **Release Job**:
-	- **Download binary**: Downloads the archived binary.
-	- **Create GitHub Release**: Creates a release on GitHub.
-	- **Upload Release Asset**: Uploads the binary to the release.
+	- **Checkout repository**: Clones the repository to the runner.
+	- **Extract tag name**: Extracts the tag name from the GitHub reference.
+	- **Create GitHub Release**: Creates a new release on GitHub with the extracted tag name.
+	- **Save upload URL**: Saves the upload URL for the release asset.
+	- **Upload upload_url artifact**: Uploads the URL to an artifact to be used in the next job.
+
+4. **Upload Assets Job**:
+	- **Checkout repository**: Clones the repository to the runner.
+	- **Download binary**: Downloads the archived binary from the build job.
+	- **Download upload_url artifact**: Downloads the artifact containing the upload URL.
+	- **Read upload_url**: Reads the upload URL from the artifact and sets it as an environment variable.
+	- **Upload Release Asset**: Uploads the built binary to the GitHub release as an asset.
+
+This workflow ensures that each step in the process of building, testing, and releasing a new version of the software is automated and consistently executed.
 
 ### Creating a Release
 
