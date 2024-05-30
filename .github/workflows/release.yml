@@ -53,7 +53,13 @@ jobs:
 
     release:
         needs: build
+
         runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                os: [ ubuntu-latest, macos-latest ]
+
         steps:
             - name: Download binary
               uses: actions/download-artifact@v2
