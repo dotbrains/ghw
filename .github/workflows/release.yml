@@ -76,7 +76,7 @@ jobs:
                   prerelease: false
 
     upload_assets:
-        needs: build
+        needs: [build, create_release]
 
         runs-on: ubuntu-latest
 
