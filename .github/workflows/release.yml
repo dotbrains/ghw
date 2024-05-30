@@ -42,9 +42,9 @@ jobs:
 
             - name: Inject version and build executable
               run: |
-                VERSION=$(python setup.py --version)
-                sed -i "s/VERSION = \"0.0.0\"/VERSION = \"$VERSION\"/" src/ghw.py
-                pyinstaller --onefile src/ghw.py --name ghw
+                  VERSION=$(python setup.py --version)
+                  sed -i "s/VERSION = \"0.0.0\"/VERSION = \"$VERSION\"/" src/ghw.py
+                  pyinstaller --onefile src/ghw.py --name ghw
 
             - name: Archive binary
               uses: actions/upload-artifact@v2
@@ -77,14 +77,13 @@ jobs:
                   prerelease: false
 
             - name: Save upload URL
-              run: echo "${{ steps.create_release_step.outputs.upload_url }}" > upload_url.txt
+              run: echo "${{ steps.create_release.outputs.upload_url }}" > upload_url.txt
 
             - name: Upload upload_url artifact
               uses: actions/upload-artifact@v2
               with:
-                name: upload_url
-                path: upload_url.txt
-
+                  name: upload_url
+                  path: upload_url.txt
 
     upload_assets:
         needs: [build, create_release]
@@ -93,9 +92,12 @@ jobs:
 
         strategy:
             matrix:
-                os: [ ubuntu-latest, macos-latest ]
+                os: [ubuntu-latest, macos-latest]
 
         steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
             - name: Download binary
               uses: actions/download-artifact@v2
               with:
@@ -105,22 +107,22 @@ jobs:
             - name: Download upload_url artifact
               uses: actions/download-artifact@v2
               with:
-                name: upload_url
-                path: .
+                  name: upload_url
+                  path: .
 
             - name: Read upload_url
               id: read_upload_url
               run: |
-                UPLOAD_URL=$(cat upload_url.txt)
-                echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
+                  UPLOAD_URL=$(cat upload_url.txt)
+                  echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
 
             - name: Upload Release Asset
               uses: actions/upload-release-asset@v1
               env:
-                GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-                UPLOAD_URL: ${{ env.UPLOAD_URL }}
+                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+                  UPLOAD_URL: ${{ env.UPLOAD_URL }}
               with:
-                upload_url: ${{ env.UPLOAD_URL }}
-                asset_path: ./dist/ghw
-                asset_name: ghw-${{ matrix.os }}
-                asset_content_type: application/octet-stream
+                  upload_url: ${{ env.UPLOAD_URL }}
+                  asset_path: ./dist/ghw
+                  asset_name: ghw-${{ matrix.os }}
+                  asset_content_type: application/octet-stream
