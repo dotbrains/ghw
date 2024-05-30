@@ -77,7 +77,14 @@ jobs:
                   prerelease: false
 
             - name: Save upload URL
-              run: echo "UPLOAD_URL=${{ steps.create_release_step.outputs.upload_url }}" >> $GITHUB_ENV
+              run: echo "${{ steps.create_release_step.outputs.upload_url }}" > upload_url.txt
+
+            - name: Upload upload_url artifact
+              uses: actions/upload-artifact@v2
+              with:
+                name: upload_url
+                path: upload_url.txt
+
 
     upload_assets:
         needs: [build, create_release]
@@ -95,12 +102,25 @@ jobs:
                   name: ghw-${{ matrix.os }}
                   path: dist/
 
+            - name: Download upload_url artifact
+              uses: actions/download-artifact@v2
+              with:
+                name: upload_url
+                path: .
+
+            - name: Read upload_url
+              id: read_upload_url
+              run: |
+                UPLOAD_URL=$(cat upload_url.txt)
+                echo "UPLOAD_URL=$UPLOAD_URL" >> $GITHUB_ENV
+
             - name: Upload Release Asset
               uses: actions/upload-release-asset@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+                GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+                UPLOAD_URL: ${{ env.UPLOAD_URL }}
               with:
-                  upload_url: ${{ env.UPLOAD_URL }}
-                  asset_path: ./dist/ghw
-                  asset_name: ghw-${{ matrix.os }}
-                  asset_content_type: application/octet-stream
+                upload_url: ${{ env.UPLOAD_URL }}
+                asset_path: ./dist/ghw
+                asset_name: ghw-${{ matrix.os }}
+                asset_content_type: application/octet-stream
