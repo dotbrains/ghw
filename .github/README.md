@@ -185,7 +185,7 @@ project_root/
 
 ## GitHub Actions Workflow
 
-This project includes a GitHub Actions workflow that automatically builds a new binary and creates a release on GitHub whenever a new tag is pushed that matches the pattern v*.*.*.
+This project includes a GitHub Actions workflow that automatically builds a new binary and creates a release on GitHub whenever a new tag is pushed that matches the pattern `v*.*.*`.
 
 ### How It Works
 
