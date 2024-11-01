@@ -3,7 +3,6 @@
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Linux](https://img.shields.io/badge/-Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
 ![macOS](https://img.shields.io/badge/-macOS-000000?style=flat-square&logo=apple&logoColor=white)
-![Windows](https://img.shields.io/badge/-Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
 ![GitHub CLI](https://img.shields.io/badge/-GitHub_CLI-181717?style=flat-square&logo=github&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/-OpenAI-FF0084?style=flat-square&logo=openai&logoColor=white)
 

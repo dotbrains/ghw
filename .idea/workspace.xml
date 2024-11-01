@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad0bf501-4dc8-42f6-a468-ec0de867366a" name="Changes" comment="Update workflow and .idea metadata versions&#10;&#10;Upgraded actions in `release.yml` to use `v4` for upload/download artifact steps, improving compatibility. Enhanced `.idea` workspace metadata for better task clarity and structured dry run output formatting.">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/release.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/release.yml" afterDir="false" />
+    <list default="true" id="ad0bf501-4dc8-42f6-a468-ec0de867366a" name="Changes" comment="Update workflow and .idea metadata versions&#10;&#10;Upgraded actions in `release.yml` to use `v4` for artifact steps, enhancing compatibility. Modified `.idea` workspace metadata to improve task clarity and dry run output formatting.">
+      <change beforePath="$PROJECT_DIR$/.github/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +124,7 @@
       <workItem from="1719676313579" duration="15781000" />
       <workItem from="1721082427917" duration="389000" />
       <workItem from="1721082839414" duration="3546000" />
-      <workItem from="1730455508158" duration="8222000" />
+      <workItem from="1730455508158" duration="8418000" />
     </task>
     <task id="LOCAL-00001" summary="Add AI-based commit message generation&#10; &#10;Introduced AI-based commit message generation with support for ChatGPT and Claude services. Updated `setup.py` to version `1.1.0`, modified `src/ghw.py` to include new arguments for AI services, and added several new Python modules to facilitate the integration. Modified the README to document new features and usage.">
       <option name="closed" value="true" />
@@ -190,7 +190,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730501212842</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Update workflow and .idea metadata versions&#10;&#10;Upgraded actions in `release.yml` to use `v4` for artifact steps, enhancing compatibility. Modified `.idea` workspace metadata to improve task clarity and dry run output formatting.">
+      <option name="closed" value="true" />
+      <created>1730501330097</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1730501330097</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,7 +213,8 @@
     <MESSAGE value="Switch from ai to openai for API calls&#10;&#10;Updated the ChatGPTService to use the openai library instead of ai for API key assignment and completion creation. This change ensures compatibility with the openai's latest API adjustments." />
     <MESSAGE value="Update .idea metadata and improve dry run message formatting&#10;&#10;Updated comments and tasks in .idea/workspace.xml for better clarity and added new local tasks. Enhanced the dry run output in ghw.py to include backticks for better readability." />
     <MESSAGE value="Update workflow and .idea metadata versions&#10;&#10;Upgraded actions in `release.yml` to use `v4` for upload/download artifact steps, improving compatibility. Enhanced `.idea` workspace metadata for better task clarity and structured dry run output formatting." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update workflow and .idea metadata versions&#10;&#10;Upgraded actions in `release.yml` to use `v4` for upload/download artifact steps, improving compatibility. Enhanced `.idea` workspace metadata for better task clarity and structured dry run output formatting." />
+    <MESSAGE value="Update workflow and .idea metadata versions&#10;&#10;Upgraded actions in `release.yml` to use `v4` for artifact steps, enhancing compatibility. Modified `.idea` workspace metadata to improve task clarity and dry run output formatting." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update workflow and .idea metadata versions&#10;&#10;Upgraded actions in `release.yml` to use `v4` for artifact steps, enhancing compatibility. Modified `.idea` workspace metadata to improve task clarity and dry run output formatting." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ghw$.coverage" NAME=" Coverage Results" MODIFIED="1730501038253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
