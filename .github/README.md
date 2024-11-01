@@ -241,11 +241,9 @@ project_root/
 -  **setup.py**: The setup script for packaging.
 -  **README.md**: Project documentation.
 
-This directory structure should be more organized and logical for a Python project.
-
 ## GitHub Actions Workflow
 
-This project includes a GitHub Actions workflow that automatically builds a new binary and creates a release on GitHub whenever a new tag is pushed that matches the pattern v*.*.*.
+This project includes a GitHub Actions workflow that automatically builds a new binary and creates a release on GitHub whenever a new tag is pushed that matches the pattern `v*.*.*`.
 
 ### How It Works
 
