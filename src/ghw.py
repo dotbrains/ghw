@@ -3,6 +3,8 @@ import os
 import shutil
 import subprocess
 
+from ai.ai_service_factory import AIServiceFactory
+from ai.commit import CommitMessageGenerator
 from src.github.clone_repo import clone_repo
 from src.github.parse_repo_address import parse_repo_address
 from src.utilities.obtain_version import obtain_version
@@ -15,7 +17,7 @@ def parse_arguments():
     :return: The parsed arguments
     """
     parser = argparse.ArgumentParser(
-        description="A wrapper for the GitHub CLI with enhanced clone functionality."
+        description="A wrapper for the GitHub CLI with enhanced clone and commit functionality."
     )
     parser.add_argument("command", help="The gh command to run")
     parser.add_argument(
@@ -23,7 +25,7 @@ def parse_arguments():
         "--update",
         action="store_true",
         default=False,
-        help="Update the CLI to the latest " "release",
+        help="Update the CLI to the latest release",
     )
     parser.add_argument(
         "--dry-run",
@@ -35,7 +37,7 @@ def parse_arguments():
         "--default",
         action="store_true",
         default=False,
-        help="Use the default behavior for the " "clone command",
+        help="Use the default behavior for the clone command",
     )
     parser.add_argument(
         "-d", "--dir", help="The base directory to clone repositories into"
@@ -48,6 +50,29 @@ def parse_arguments():
     )
     parser.add_argument(
         "args", nargs=argparse.REMAINDER, help="Arguments for the gh command"
+    )
+    parser.add_argument(
+        "--chatgpt",
+        action="store_true",
+        help="Use ChatGPT to generate the commit message",
+    )
+    parser.add_argument(
+        "--claude",
+        action="store_true",
+        help="Use Claude to generate the commit message",
+    )
+    parser.add_argument(
+        "--sonnet",
+        action="store_true",
+        help="Use Sonnet to generate the commit message",
+    )
+    parser.add_argument(
+        "--openai-api-key",
+        help="Specify OpenAI API key for ChatGPT",
+    )
+    parser.add_argument(
+        "--anthropic-api-key",
+        help="Specify Anthropic API key for Claude",
     )
 
     return parser.parse_args()
@@ -110,6 +135,54 @@ def handle_clone_repo(args):
     clone_repo(domain, owner, repo, base_dir)
 
 
+def handle_commit(args):
+    """
+    Handle the commit command.
+    :param args: The parsed arguments
+    :return: None
+    """
+    # Check if a custom commit message is provided
+    custom_message = None
+    if "-m" in args.args:
+        message_index = args.args.index("-m") + 1
+        if message_index < len(args.args):
+            custom_message = args.args[message_index]
+    elif "--message" in args.args:
+        message_index = args.args.index("--message") + 1
+        if message_index < len(args.args):
+            custom_message = args.args[message_index]
+
+    # If a custom message is provided, use it directly
+    if custom_message:
+        if args.dry_run:
+            print(f"Dry run: would commit with message: {custom_message}")
+        else:
+            subprocess.run(["git", "commit", "-m", custom_message])
+        return
+
+    # Validate AI service choice if no custom message
+    if args.chatgpt and (args.claude or args.sonnet):
+        raise ValueError("Only one of --chatgpt or --claude/--claude --sonnet can be chosen.")
+    if args.sonnet and not args.claude:
+        raise ValueError("--sonnet requires --claude to be specified.")
+
+    # Set API keys for AI-based generation
+    if args.chatgpt:
+        os.environ["OPENAI_API_KEY"] = args.openai_api_key or os.getenv("OPENAI_API_KEY")
+    elif args.claude or args.sonnet:
+        os.environ["ANTHROPIC_API_KEY"] = args.anthropic_api_key or os.getenv("ANTHROPIC_API_KEY")
+
+    # Initialize the selected AI service if no custom message
+    service = AIServiceFactory.create_service(args.chatgpt, args.claude, args.sonnet)
+    generator = CommitMessageGenerator(service)
+    commit_message = generator.generate_commit_message()
+
+    if args.dry_run:
+        print(f"Dry run: would commit with message: {commit_message}")
+    else:
+        subprocess.run(["git", "commit", "-m", commit_message])
+
+
 def main():
     """
     The main function.
@@ -129,17 +202,16 @@ def main():
         update_cli()
         return
 
-    if (
-        args.command == "repo"
-        and len(args.args) > 0
-        and args.args[0] == "clone"
-        and not args.default
-    ):
+    if args.command == "repo" and len(args.args) > 0 and args.args[0] == "clone" and not args.default:
         handle_clone_repo(args)
         return
 
+    if args.command == "commit":
+        handle_commit(args)
+        return
+
     if args.dry_run:
-        print(f"Dry run: would execute `gh {args.command} {' '.join(args.args)}`")
+        print(f"Dry run: would execute gh {args.command} {' '.join(args.args)}")
         return
 
     # Pass through to the official gh CLI using the absolute path

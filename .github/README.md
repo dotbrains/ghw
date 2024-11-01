@@ -1,5 +1,12 @@
 # ghw [![Build, Test, and Release](https://github.com/dotbrains/ghw/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/ghw/actions/workflows/release.yml)
 
+![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Linux](https://img.shields.io/badge/-Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
+![macOS](https://img.shields.io/badge/-macOS-000000?style=flat-square&logo=apple&logoColor=white)
+![Windows](https://img.shields.io/badge/-Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
+![GitHub CLI](https://img.shields.io/badge/-GitHub_CLI-181717?style=flat-square&logo=github&logoColor=white)
+![OpenAI](https://img.shields.io/badge/-OpenAI-FF0084?style=flat-square&logo=openai&logoColor=white)
+
 `ghw` is a command-line tool that acts as a wrapper around the official GitHub CLI (`gh`). It provides enhanced functionality for cloning repositories into a specified directory structure while passing through all other commands to the official `gh` CLI.
 
 ## Features
@@ -104,6 +111,47 @@ ghw --default --dry-run repo clone github.com/octocat/Hello-World -d /path/to/ba
 
 This will print the command without executing it because of the use of the `--dry-run` flag.
 
+### Commits with AI Services
+
+You can use AI services to generate commit messages with the `ghw` CLI tool. The command supports selecting between ChatGPT and Claude for generating messages, with an optional mode for Claude’s Sonnet.
+
+To generate commit messages using AI services, run:
+
+```sh
+ghw commit [--chatgpt | --claude [--sonnet]] [--dry-run] [--openai-api-key YOUR_OPENAI_KEY] [--anthropic-api-key YOUR_ANTHROPIC_KEY] [-m "Your commit message"]
+```
+
+#### Options
+
+- `--chatgpt` (optional): Use ChatGPT to generate the commit message. This option requires an OpenAI API key.
+- `--claude` (optional): Use Claude to generate the commit message. This option requires an Anthropic API key.
+- `--sonnet` (optional): Use Claude with the Sonnet mode for generating the commit message. **Requires** `--claude` to be specified.
+- `--dry-run` (optional): Print the command and generated commit message without executing it.
+- `--openai-api-key` (optional): Specify your OpenAI API key directly for the ChatGPT service. If not provided, the `OPENAI_API_KEY` environment variable will be used.
+- `--anthropic-api-key` (optional): Specify your Anthropic API key directly for the Claude service. If not provided, the `ANTHROPIC_API_KEY` environment variable will be used.
+- `-m`, `--message` (optional): Specify the commit message directly, bypassing AI generation.
+
+#### Notes
+
+1. **Choose Only One AI Service**: You must select only one of `--chatgpt` or `--claude`. Using both options together will result in an error.
+2. **Using Sonnet with Claude**: The `--sonnet` option can only be used if `--claude` is also specified. It will raise an error if used without `--claude`.
+3. **Custom Message**: If `-m` or `--message` is provided with a commit message, the specified message will be used directly, and no AI generation will occur.
+4. **API Key Requirement**: Each AI service requires its respective API key. If the API key is not provided via command line (`--openai-api-key` or `--anthropic-api-key`), the tool will attempt to use the appropriate environment variable.
+5. **Environment Variables**:
+	- If not passing API keys directly, ensure `OPENAI_API_KEY` is set for ChatGPT or `ANTHROPIC_API_KEY` is set for Claude in your environment.
+6. **Dry Run Mode**: To see the generated commit message without committing, use `--dry-run`. This is useful for previewing the commit message.
+
+#### Environment Variables
+
+To set the API keys as environment variables:
+
+```sh
+export OPENAI_API_KEY=YOUR_OPENAI_KEY
+export ANTHROPIC_API_KEY=YOUR_ANTHROPIC_API_KEY
+```
+
+This command provides a streamlined way to generate commit messages with AI, allowing you to select your preferred service or use your own message directly, based on your workflow needs.
+
 ### Pass-Through Commands
 
 For any other `gh` commands, it functions as a pass-through to the official `gh` CLI:
@@ -135,19 +183,22 @@ python -m unittest discover -s tests
 project_root/
 │
 ├── src/
-│   ├── __init__.py
+│   ├── ai/
+│   │   ├── services/
+│   │   │   ├── chatgpt_service.py
+│   │   │   ├── claude_service.py
+│   │   ├── ai_service.py
+│   │   ├── ai_service_factory.py
+│   │   ├── commit.py
 │   ├── github/
-│   │   ├── __init__.py
 │   │   ├── clone_repo.py
 │   │   ├── parse_repo_address.py
 │   ├── utilities/
-│   │   ├── __init__.py
 │   │   ├── obtain_version.py
 │   │   ├── update.py
 │   ├── ghw.py
 │
 ├── tests/
-│   ├── __init__.py
 │   ├── test_clone_repo.py
 │   ├── test_dry_run.py
 │   ├── test_update.py
@@ -164,6 +215,13 @@ project_root/
 ### Explanation:
 
 -  **src/**: This is the main source directory.
+- **ai/**: Contains AI-related functionality.
+	- **services/**: Contains AI services.
+		- `chatgpt_service.py`: ChatGPT service logic.
+		- `claude_service.py`: Claude service logic.
+	- `ai_service.py`: AI service logic.
+	- `ai_service_factory.py`: Factory for creating AI services.
+    - `commit.py`: Logic for handling commits using AI services.
 - **github/**: Contains GitHub-related functionality.
 	- `clone_repo.py`: Logic for cloning repositories.
 	- `parse_repo_address.py`: Logic for parsing repository addresses.
@@ -254,7 +312,7 @@ The `pre-commit` hook will automatically format your code using `black` before e
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
 
 ## Contributing
 
