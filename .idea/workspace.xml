@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad0bf501-4dc8-42f6-a468-ec0de867366a" name="Changes" comment="Add AI-based commit message generation&#10; &#10;Introduced AI-based commit message generation with support for ChatGPT and Claude services. Updated `setup.py` to version `1.1.0`, modified `src/ghw.py` to include new arguments for AI services, and added several new Python modules to facilitate the integration. Modified the README to document new features and usage.">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/release.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/release.yml" afterDir="false" />
+    <list default="true" id="ad0bf501-4dc8-42f6-a468-ec0de867366a" name="Changes" comment="Refactor import paths for AI service modules&#10;&#10;Updated the import statements for `AIServiceFactory` and `CommitMessageGenerator` to reflect their new paths under the `src` directory. This change improves module organization and clarity within the project structure.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai/ai_service_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai/ai_service_factory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai/services/chatgpt_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai/services/chatgpt_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai/services/claude_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai/services/claude_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +103,7 @@
       <workItem from="1719676313579" duration="15781000" />
       <workItem from="1721082427917" duration="389000" />
       <workItem from="1721082839414" duration="3546000" />
-      <workItem from="1730455508158" duration="7018000" />
+      <workItem from="1730455508158" duration="7317000" />
     </task>
     <task id="LOCAL-00001" summary="Add AI-based commit message generation&#10; &#10;Introduced AI-based commit message generation with support for ChatGPT and Claude services. Updated `setup.py` to version `1.1.0`, modified `src/ghw.py` to include new arguments for AI services, and added several new Python modules to facilitate the integration. Modified the README to document new features and usage.">
       <option name="closed" value="true" />
@@ -110,7 +113,23 @@
       <option name="project" value="LOCAL" />
       <updated>1730496291078</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Update actions/upload-artifact to v4 in release workflow&#10;&#10;Upgraded the GitHub Actions upload-artifact to version v4 in the release.yml file. Additionally, removed unnecessary change tracking entries and added metadata for new AI-based commit message generation features in workspace.xml.">
+      <option name="closed" value="true" />
+      <created>1730500129890</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1730500129890</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refactor import paths for AI service modules&#10;&#10;Updated the import statements for `AIServiceFactory` and `CommitMessageGenerator` to reflect their new paths under the `src` directory. This change improves module organization and clarity within the project structure.">
+      <option name="closed" value="true" />
+      <created>1730500321140</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730500321140</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,6 +137,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add AI-based commit message generation&#10; &#10;Introduced AI-based commit message generation with support for ChatGPT and Claude services. Updated `setup.py` to version `1.1.0`, modified `src/ghw.py` to include new arguments for AI services, and added several new Python modules to facilitate the integration. Modified the README to document new features and usage." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add AI-based commit message generation&#10; &#10;Introduced AI-based commit message generation with support for ChatGPT and Claude services. Updated `setup.py` to version `1.1.0`, modified `src/ghw.py` to include new arguments for AI services, and added several new Python modules to facilitate the integration. Modified the README to document new features and usage." />
+    <MESSAGE value="Update actions/upload-artifact to v4 in release workflow&#10;&#10;Upgraded the GitHub Actions upload-artifact to version v4 in the release.yml file. Additionally, removed unnecessary change tracking entries and added metadata for new AI-based commit message generation features in workspace.xml." />
+    <MESSAGE value="Refactor import paths for AI service modules&#10;&#10;Updated the import statements for `AIServiceFactory` and `CommitMessageGenerator` to reflect their new paths under the `src` directory. This change improves module organization and clarity within the project structure." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor import paths for AI service modules&#10;&#10;Updated the import statements for `AIServiceFactory` and `CommitMessageGenerator` to reflect their new paths under the `src` directory. This change improves module organization and clarity within the project structure." />
   </component>
 </project>

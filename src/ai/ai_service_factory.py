@@ -1,8 +1,8 @@
 import os
 
-from ai.ai_service import AIService
-from ai.services.chatgpt_service import ChatGPTService
-from ai.services.claude_service import ClaudeService
+from src.ai.ai_service import AIService
+from src.ai.services.chatgpt_service import ChatGPTService
+from src.ai.services.claude_service import ClaudeService
 
 
 class AIServiceFactory:

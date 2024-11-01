@@ -1,6 +1,6 @@
 import requests
 
-from ai.ai_service import AIService
+from src.ai.ai_service import AIService
 
 
 class ClaudeService(AIService):

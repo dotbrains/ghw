@@ -1,5 +1,5 @@
 import ai
-from ai.ai_service import AIService
+from src.ai.ai_service import AIService
 
 
 class ChatGPTService(AIService):
