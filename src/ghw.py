@@ -211,7 +211,7 @@ def main():
         return
 
     if args.dry_run:
-        print(f"Dry run: would execute gh {args.command} {' '.join(args.args)}")
+        print(f"Dry run: would execute `gh {args.command} {' '.join(args.args)}`")
         return
 
     # Pass through to the official gh CLI using the absolute path
