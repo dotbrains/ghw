@@ -3,8 +3,8 @@ import os
 import shutil
 import subprocess
 
-from ai.ai_service_factory import AIServiceFactory
-from ai.commit import CommitMessageGenerator
+from src.ai.ai_service_factory import AIServiceFactory
+from src.ai.commit import CommitMessageGenerator
 from src.github.clone_repo import clone_repo
 from src.github.parse_repo_address import parse_repo_address
 from src.utilities.obtain_version import obtain_version
