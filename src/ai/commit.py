@@ -1,6 +1,6 @@
 import subprocess
 
-from ai.ai_service import AIService
+from src.ai.ai_service import AIService
 
 # Commit Message Generator class
 class CommitMessageGenerator:
