@@ -110,7 +110,7 @@ ghw --default --dry-run repo clone github.com/octocat/Hello-World -d /path/to/ba
 
 This will print the command without executing it because of the use of the `--dry-run` flag.
 
-### Commits with AI Services
+### Commit using AI
 
 You can use AI services to generate commit messages with the `ghw` CLI tool. The command supports selecting between ChatGPT and Claude for generating messages, with an optional mode for Claude’s Sonnet.
 
