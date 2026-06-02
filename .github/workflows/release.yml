@@ -5,9 +5,14 @@ on:
         tags:
             - 'v*.*.*'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
     build:
         runs-on: ubuntu-latest
+        timeout-minutes: 30
 
         strategy:
             matrix:
@@ -54,6 +59,7 @@ jobs:
 
     create_release:
         runs-on: ubuntu-latest
+        timeout-minutes: 30
 
         needs: build
 
@@ -89,6 +95,7 @@ jobs:
         needs: [build, create_release]
 
         runs-on: ${{ matrix.os }}
+        timeout-minutes: 45
 
         strategy:
             matrix:
