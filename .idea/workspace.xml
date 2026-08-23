@@ -31,7 +31,7 @@
   </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/dotbrains/ghw.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/smeltery/ghw.git&quot;,
     &quot;accountId&quot;: &quot;511018a2-483e-4eb3-ba66-bd342b51abd0&quot;
   }
 }</component>
@@ -49,7 +49,7 @@
     "Python tests.Python tests for test_dry_run.TestDryRun.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/Users/nicholas/Documents/GitHub/github.com/dotbrains/ghw",
+    "last_opened_file_path": "/Users/nicholas/Documents/GitHub/github.com/smeltery/ghw",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

@@ -52,7 +52,7 @@ def update_cli():
     Update the GitHub Wrapper CLI to the latest version.
     :return: None
     """
-    repo = "dotbrains/ghw"
+    repo = "smeltery/ghw"
     current_path = Path(__file__).resolve().parent / "ghw"
     current_version = get_current_version(current_path)
 

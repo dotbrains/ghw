@@ -1,4 +1,4 @@
-# ghw [![Build, Test, and Release](https://github.com/dotbrains/ghw/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/ghw/actions/workflows/release.yml)
+# ghw [![Build, Test, and Release](https://github.com/smeltery/ghw/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/ghw/actions/workflows/release.yml)
 [![License: PolyForm Shield 1.0.0](https://img.shields.io/badge/License-PolyForm%20Shield%201.0.0-blue.svg)](https://polyformproject.org/licenses/shield/1.0.0/)
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
@@ -21,13 +21,13 @@
 
 1. Clone this repository:
     ```sh
-    git clone https://github.com/dotbrains/ghw.git
+    git clone https://github.com/smeltery/ghw.git
     cd ghw
     ```
 
 	or using `gh`:
 	```sh
-	gh repo clone dotbrains/ghw
+	gh repo clone smeltery/ghw
 	cd ghw
 	```
 
